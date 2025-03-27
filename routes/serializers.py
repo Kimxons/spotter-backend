@@ -92,7 +92,39 @@ class TripDetailsSerializer(serializers.Serializer):
     current_location = serializers.CharField(max_length=255)
     pickup_location = serializers.CharField(max_length=255)
     dropoff_location = serializers.CharField(max_length=255)
-    cycle_hours_used = serializers.DecimalField(max_digits=5, decimal_places=2, min_value=Decimal('0'), max_value=Decimal('70'))
+    cycle_hours_used = serializers.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        min_value=Decimal('0'),
+        max_value=Decimal('70'),
+        coerce_to_string=False,
+        error_messages={
+            'invalid': 'Enter a valid number for cycle hours used.',
+            'max_value': 'Cycle hours used cannot exceed 70.',
+            'min_value': 'Cycle hours used cannot be negative.',
+            'max_digits': 'Cycle hours used cannot have more than 5 digits.',
+            'max_decimal_places': 'Cycle hours used cannot have more than 2 decimal places.'
+        }
+    )
+    
+    def to_internal_value(self, data):
+        """
+        Convert the input data before validation.
+        """
+        # Make a copy of the data to avoid modifying the original
+        ret = data.copy() if hasattr(data, 'copy') else dict(data)
+        
+        # Convert cycle_hours_used to Decimal if it's a string, int, or float
+        if 'cycle_hours_used' in ret:
+            try:
+                if isinstance(ret['cycle_hours_used'], (str, int, float)):
+                    ret['cycle_hours_used'] = Decimal(str(ret['cycle_hours_used']))
+            except (ValueError, TypeError) as e:
+                print(f"Error converting cycle_hours_used: {e}")
+                pass
+        
+        print("Processed data before validation:", ret)
+        return super().to_internal_value(ret)
 
 
 class HOSRegulationSerializer(serializers.ModelSerializer):
