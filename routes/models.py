@@ -11,15 +11,13 @@ class Route(models.Model):
     distance, duration, and associated stops and logs.
     """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='routes')
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True,blank=True, related_name='routes')
     
-    # Route details
     start_location = models.CharField(max_length=255)
     end_location = models.CharField(max_length=255)
     total_distance = models.DecimalField(max_digits=10, decimal_places=2)  # in miles
-    total_duration = models.CharField(max_length=100)  # formatted duration string
+    total_duration = models.CharField(max_length=100) 
     
-    # Metadata
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
