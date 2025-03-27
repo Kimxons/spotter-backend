@@ -1,0 +1,12 @@
+Django
+djangorestframework
+django-cors-headers
+django-filter
+drf-yasg
+psycopg2-binary
+python-dotenv
+requests
+geopy
+polyline
+gunicorn
+whitenoise
