@@ -19,7 +19,6 @@ class HOSValidator:
         """
         cycle_hours_used = float(trip_details['cycle_hours_used'])
         
-        # Basic validation
         errors = {}
         
         # Check if cycle hours used is within limits
@@ -36,7 +35,6 @@ class HOSValidator:
         if not trip_details['dropoff_location']:
             errors['dropoff_location'] = "Dropoff location is required."
         
-        # Return validation result
         return {
             'valid': len(errors) == 0,
             'errors': errors
