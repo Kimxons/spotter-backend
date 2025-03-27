@@ -122,7 +122,7 @@ class LogActivity(models.Model):
     log_day = models.ForeignKey(LogDay, on_delete=models.CASCADE, related_name='activities')
     
     # Activity details
-    type = models.CharField(max_length=20, choices=ACTIVITY_TYPES)
+    stop_type = models.CharField(max_length=20, choices=ACTIVITY_TYPES)
     start_time = models.CharField(max_length=10)  # Format: "HH:MM"
     end_time = models.CharField(max_length=10)  # Format: "HH:MM"
     location = models.CharField(max_length=255)
