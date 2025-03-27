@@ -5,7 +5,7 @@ from decimal import Decimal
 class LogActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = LogActivity
-        fields = ['id', 'type', 'start_time', 'end_time', 'location', 'description']
+        fields = ['id', 'stop_type', 'start_time', 'end_time', 'location', 'description']
         read_only_fields = ['id']
 
 
@@ -43,7 +43,7 @@ class RouteStopSerializer(serializers.ModelSerializer):
     class Meta:
         model = RouteStop
         fields = [
-            'id', 'type', 'location', 'description', 'arrival_time',
+            'id', 'stop_type', 'location', 'description', 'arrival_time',
             'departure_time', 'duration', 'mileage', 'latitude', 'longitude'
         ]
         read_only_fields = ['id']

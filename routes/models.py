@@ -47,8 +47,7 @@ class RouteStop(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     route = models.ForeignKey(Route, on_delete=models.CASCADE, related_name='stops')
     
-    # Stop details
-    type = models.CharField(max_length=20, choices=STOP_TYPES)
+    stop_type = models.CharField(max_length=20, choices=STOP_TYPES)
     location = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     arrival_time = models.CharField(max_length=100)
@@ -95,7 +94,6 @@ class LogDay(models.Model):
     driving_hours = models.DecimalField(max_digits=5, decimal_places=2)
     on_duty_not_driving_hours = models.DecimalField(max_digits=5, decimal_places=2)
     
-    # Metadata
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
