@@ -62,22 +62,25 @@ class RouteSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'created_at']
     
     def create(self, validated_data):
+        # Assign user only if authenticated
+        user = self.context['request'].user
+        validated_data['user'] = user if user.is_authenticated else None
+        
         stops_data = validated_data.pop('stops', [])
         logs_data = validated_data.pop('logs', [])
         
-        validated_data['user'] = self.context['request'].user
-        
         route = Route.objects.create(**validated_data)
         
+        # Create related stops and logs
         for stop_data in stops_data:
             RouteStop.objects.create(route=route, **stop_data)
         
         for log_data in logs_data:
             activities_data = log_data.pop('activities', [])
-            log = LogDay.objects.create(route=route, **log_data)
+            log_day = LogDay.objects.create(route=route, **log_data)
             
             for activity_data in activities_data:
-                LogActivity.objects.create(log_day=log, **activity_data)
+                LogActivity.objects.create(log_day=log_day, **activity_data)
         
         return route
 
