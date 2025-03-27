@@ -10,7 +10,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-default-key-for-devel
 
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'spotter-backend-xtfz.onrender.com','https://spotter-frontend-p0nyfzm9x-kimxons-projects.vercel.app/,127.0.0.1').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -161,5 +161,3 @@ SWAGGER_SETTINGS = {
     },
     'USE_SESSION_AUTH': False,
 }
-
-MAPBOX_API_KEY = os.environ.get('MAPBOX_API_KEY', '')

@@ -156,7 +156,6 @@ class HOSRegulation(models.Model):
     break_required_after = models.DecimalField(max_digits=5, decimal_places=2)
     break_duration = models.DecimalField(max_digits=5, decimal_places=2)
     
-    # Metadata
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
