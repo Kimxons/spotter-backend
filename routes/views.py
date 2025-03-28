@@ -70,10 +70,8 @@ class RouteViewSet(viewsets.ModelViewSet):
         """
         serializer = TripDetailsSerializer(data=request.data)
         if serializer.is_valid():
-            # Initialize the HOS validator service
             validator = HOSValidator()
             
-            # Validate the trip details
             validation_result = validator.validate_trip(serializer.validated_data)
             
             return Response(validation_result)
